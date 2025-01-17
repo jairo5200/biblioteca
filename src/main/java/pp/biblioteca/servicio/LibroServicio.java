@@ -26,8 +26,9 @@ public class LibroServicio implements  ILibroServicio{
     }
 
     @Override
-    public void guardarLibro(Libro libro) {
-        this.libroRepositorio.save(libro);
+    public Libro guardarLibro(Libro libro) {
+        Libro elLibro =this.libroRepositorio.save(libro);
+        return elLibro;
     }
 
     @Override

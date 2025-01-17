@@ -10,7 +10,7 @@ public interface ILibroServicio {
 
     public Libro buscarLibroPorId(Integer idLibro);
 
-    public void guardarLibro(Libro libro);
+    public Libro guardarLibro(Libro libro);
 
     public void eliminarLibroPorId(Integer idLibro);
 }

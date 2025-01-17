@@ -3,10 +3,7 @@ package pp.biblioteca.controlador;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pp.biblioteca.modelo.Libro;
 import pp.biblioteca.servicio.LibroServicio;
 
@@ -27,9 +24,13 @@ public class LibroControlador {
     @GetMapping("/libros")
     public List<Libro> obtenerLibros(){
         List<Libro> libros = this.libroServicio.listarLibros();
-        libros.forEach(libro -> {
-            logger.info(String.valueOf(libro));
-        });
         return libros;
+    }
+
+    //http://localhost:8080/biblioteca-app/libros
+    @PostMapping("/libros")
+    public Libro agregarLibro(@RequestBody Libro libro){
+        Libro elLibro = this.libroServicio.guardarLibro(libro);
+        return elLibro;
     }
 }
