@@ -9,7 +9,9 @@ import pp.biblioteca.excepcion.RecursoNoEncontradoExcepcion;
 import pp.biblioteca.modelo.Libro;
 import pp.biblioteca.servicio.LibroServicio;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //http://localhost:8080/biblioteca-app
@@ -57,5 +59,19 @@ public class LibroControlador {
         elLibro.setExistencia(libro.getExistencia());
         this.libroServicio.guardarLibro(elLibro);
         return ResponseEntity.ok(elLibro);
+    }
+
+    //http://localhost:8080/biblioteca-app/libros/id
+    @DeleteMapping("/libros/{idLibro}")
+    public ResponseEntity<Map<String,Boolean>> eliminarLibro(@PathVariable int idLibro){
+        Libro elLibro = this.libroServicio.buscarLibroPorId(idLibro);
+        if (elLibro != null){
+            this.libroServicio.eliminarLibroPorId(elLibro.getIdLibro());
+            Map<String,Boolean> respuesta = new HashMap<>();
+            respuesta.put("eliminado", Boolean.TRUE);
+            return ResponseEntity.ok(respuesta);
+        }else{
+            throw new RecursoNoEncontradoExcepcion("no existe el libro con el id: " + idLibro);
+        }
     }
 }
