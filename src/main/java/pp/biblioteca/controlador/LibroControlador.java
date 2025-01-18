@@ -46,4 +46,16 @@ public class LibroControlador {
              throw new RecursoNoEncontradoExcepcion("No se encontro el id: " + id);
         }
     }
+
+    //http://localhost:8080/biblioteca-app/libros/id
+    @PutMapping("/libros/{idLibro}")
+    public ResponseEntity<Libro> actualizarLibro(@PathVariable int idLibro, @RequestBody Libro libro){
+        Libro elLibro = this.libroServicio.buscarLibroPorId(idLibro);
+        elLibro.setNombre(libro.getNombre());
+        elLibro.setDescripcion(libro.getDescripcion());
+        elLibro.setPrecio(libro.getPrecio());
+        elLibro.setExistencia(libro.getExistencia());
+        this.libroServicio.guardarLibro(elLibro);
+        return ResponseEntity.ok(elLibro);
+    }
 }
